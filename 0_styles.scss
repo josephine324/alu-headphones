@@ -1,0 +1,184 @@
+// Variables
+$primary-color: #ff5a5f;
+$background-color: #181823; // Dark grey background for the page
+$text-color: #ffffff;
+$font-family: 'Arial', sans-serif;
+
+// Mixin for responsiveness
+@mixin respond($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+}
+
+// Global Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family;
+  background-color: $background-color;
+  color: $text-color;
+  overflow-x: hidden;
+}
+
+// Header
+.header {
+  display: flex;
+  align-items: center; // Align items vertically
+  padding: 20px 40px;
+
+  .logo {
+    margin-right: auto; // Push the logo to the left
+  }
+
+  .hamburger {
+    display: none; // Hide hamburger by default
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 10; // Ensure it appears on top
+  }
+
+  .nav {
+    ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+
+      li a {
+        text-decoration: none;
+        color: $text-color;
+        font-weight: bold;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $primary-color; // Hover effect on links
+        }
+      }
+    }
+  }
+
+  @include respond(mobile) {
+    flex-direction: column; // Stack elements vertically on mobile
+    padding: 10px 20px;
+
+    .hamburger {
+      display: block; // Show hamburger on mobile
+      position: absolute; // Position the hamburger icon
+      left: 20px; // Align it to the left
+    }
+
+    .logo {
+      margin: 0 auto; // Center the logo on mobile
+      padding-bottom: 10px; // Add space between logo and nav
+    }
+
+    .nav {
+      display: none; // Hide navigation by default
+      flex-direction: column; // Stack links vertically
+      width: 100%; // Full width
+
+      &.active {
+        display: flex; // Show when active
+      }
+
+      ul {
+        flex-direction: column; // Stack links vertically
+        padding: 0;
+        margin: 0;
+
+        li {
+          text-align: center; // Center align links
+          margin: 10px 0; // Space between links
+
+          a {
+            display: block; // Make links block elements
+            padding: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Hero Section
+.hero {
+  background: url('images/headphones_hero_1.jpg') no-repeat center center / cover; // Background image
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: $text-color;
+
+  // Overlay to darken the background image
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); // Dark overlay
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2; // Ensures text is on top of the overlay
+    max-width: 600px;
+
+    h1 {
+      font-size: 48px;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    .cta {
+      background-color: $primary-color;
+      padding: 15px 30px;
+      color: #fff;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+  }
+
+  @include respond(mobile) {
+    .hero-content {
+      h1 {
+        font-size: 28px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .cta {
+        padding: 12px 24px;
+      }
+    }
+  }
+}
+
+// Footer Placeholder for extra space after the hero section
+footer {
+  height: 50px;
+}
